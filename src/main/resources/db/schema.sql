@@ -13,5 +13,5 @@ CREATE TABLE PERSONNE (
 	prenom varchar(15) NOT NULL,
 	evaluation varchar(200) NOT NULL,
 	pere varchar(100) NOT NULL
-	foreign key (pere) REFERENCES PERSONNE(id),
 );
+
