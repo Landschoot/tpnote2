@@ -1,6 +1,6 @@
 /****************** Insertion des personnes ******************/
-INSERT INTO PERSONNE VALUES (default, "Landschoot", "Charles", "Bien", null);
-INSERT INTO PERSONNE VALUES (default, "Landschoot", "Guy", "Moyen", (SELECT id FROM PERSONNE WHERE prenom="Charle");
-INSERT INTO PERSONNE VALUES (default, "Landschoot", "Ludovic", "Super", (SELECT id FROM PERSONNE WHERE prenom="Guy"));
-INSERT INTO PERSONNE VALUES (default, "Landschoot", "Alicia", "Bof", (SELECT id FROM PERSONNE WHERE prenom="Guy"));
-INSERT INTO PERSONNE VALUES (default, "Landschoot", "Tony", "Bof aussi", (SELECT id FROM PERSONNE WHERE prenom="Guy"));
+INSERT INTO PERSONNE VALUES ("charles", "Landschoot", "Charles", "Bien", null);
+INSERT INTO PERSONNE VALUES ("guy", "Landschoot", "Guy", "Moyen", "charles");
+INSERT INTO PERSONNE VALUES ("ludo", "Landschoot", "Ludovic", "Super", "guy");
+INSERT INTO PERSONNE VALUES ("alicia", "Landschoot", "Alicia", "Bof", "guy");
+INSERT INTO PERSONNE VALUES ("tony", "Landschoot", "Tony", "Bof aussi", "guy");
