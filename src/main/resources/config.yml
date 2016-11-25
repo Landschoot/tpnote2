@@ -1,7 +1,7 @@
 # CONFIG DB
 db:
   driver: jdbc:mysql
-  hote: webtp.fil.univ-lille1.fr
-  base: landschoot
-  login: landschoot
-  password: Superricco
+  hote: localhost:8889
+  base: coo_tpnote2
+  login: root
+  password: root
