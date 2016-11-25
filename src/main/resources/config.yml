@@ -1,0 +1,7 @@
+# CONFIG DB
+db:
+  driver: jdbc:mysql
+  hote: webtp.fil.univ-lille1.fr
+  base: landschoot
+  login: landschoot
+  password: Superricco
