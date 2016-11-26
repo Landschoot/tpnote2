@@ -2,6 +2,6 @@
 db:
   driver: jdbc:mysql
   hote: localhost:8889
-  base: coo_tpnote2
+  base: personnels
   login: root
   password: root

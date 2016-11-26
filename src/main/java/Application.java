@@ -1,4 +1,7 @@
+import domain.IPersonne;
+import domain.Personne;
 import gui.Identification;
+import persistence.db.PersonneMapper;
 
 /**
  * Created by landschoot on 25/11/16.

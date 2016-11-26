@@ -1,11 +1,23 @@
 package persistence.vp;
 
-import domain.Personne;
+import domain.IPersonne;
 
-public class PereFactory implements Factory<Personne>{
+import persistence.db.PersonneMapper;
+
+import java.sql.SQLException;
+
+public class PereFactory implements Factory<IPersonne>{
+
+    String identifiant;
+    PersonneMapper personneMapper;
+
+    public PereFactory(String identifiant) {
+        this.identifiant = identifiant;
+        this.personneMapper = PersonneMapper.getInstance();
+    }
 
     @Override
-    public Personne create() {
-        return null;
+    public IPersonne create() throws SQLException {
+        return personneMapper.findByIdentifiant(this.identifiant);
     }
 }

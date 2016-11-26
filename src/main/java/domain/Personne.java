@@ -2,9 +2,8 @@ package domain;
 
 import lombok.Builder;
 import lombok.Data;
-import persistence.uow.IDomainObject;
+import persistence.uow.Observable;
 import persistence.uow.Observateur;
-import persistence.uow.Visiteur;
 
 import java.util.List;
 
@@ -14,19 +13,15 @@ import java.util.List;
  */
 @Data
 @Builder
-public class Personne implements IDomainObject {
+public class Personne implements IPersonne {
     private List<Observateur> obs;
+
     private String identifiant;
     private String nom;
     private String prenom;
-    private String description;
-    private Personne pere;
-    private List<Personne> fils;
-
-    @Override
-    public void accepter(Visiteur v) {
-        v.visiter(this);
-    }
+    private String evaluation;
+    private IPersonne pere;
+    private List<IPersonne> fils;
 
     @Override
     public void add(Observateur o) {
