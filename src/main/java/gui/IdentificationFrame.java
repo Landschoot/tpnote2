@@ -1,5 +1,8 @@
 package gui;
 
+import domain.Personne;
+import service.PersonneService;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +12,16 @@ import java.awt.event.ActionListener;
  * Classe qui représente la fenêtre d'identification d'une personne
  */
 public class IdentificationFrame extends JFrame {
+    private JLabel infoLabel;
+    private JLabel identifiantLabel;
+    private JTextField identifiantField;
+    private JButton loginButton;
+    private JButton helpButton;
+
+    private PersonneService personneService;
 
     public IdentificationFrame(){
+        this.personneService = PersonneService.getInstance();
         this.setTitle("IdentificationFrame");
         this.setSize(300, 150);
         this.setLocationRelativeTo(null);
@@ -24,31 +35,55 @@ public class IdentificationFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JLabel userLabel = new JLabel("IdentificationFrame de la personne ;");
-        userLabel.setBounds(10, 10, 250, 25);
-        panel.add(userLabel);
+        this.infoLabel = new JLabel("IdentificationFrame de la personne ;");
+        this.infoLabel.setBounds(10, 10, 250, 25);
+        panel.add(infoLabel);
 
-        JLabel passwordLabel = new JLabel("Identifiant");
-        passwordLabel.setBounds(10, 40, 80, 25);
-        panel.add(passwordLabel);
+        this.identifiantLabel = new JLabel("Identifiant");
+        this.identifiantLabel.setBounds(10, 40, 80, 25);
+        panel.add(identifiantLabel);
 
-        JPasswordField passwordText = new JPasswordField(20);
-        passwordText.setBounds(100, 40, 160, 25);
-        panel.add(passwordText);
+        this.identifiantField = new JTextField(20);
+        this.identifiantField.setBounds(100, 40, 160, 25);
+        panel.add(identifiantField);
 
-        JButton loginButton = new JButton("login");
-        loginButton.setBounds(10, 80, 80, 25);
-        loginButton.addActionListener(new ActionListener() {
+        this.loginButton = new JButton("login");
+        this.loginButton.setBounds(10, 80, 80, 25);
+        this.loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                new ConsultationFrame();
+                connect();
             }
         });
         panel.add(loginButton);
 
-        JButton registerButton = new JButton("aide");
-        registerButton.setBounds(180, 80, 80, 25);
-        panel.add(registerButton);
+        this.helpButton = new JButton("aide");
+        this.helpButton.setBounds(180, 80, 80, 25);
+        panel.add(helpButton);
         return panel;
+    }
+
+    private void connect() {
+        if (!fieldEmpty()) {
+            try {
+                checkPersonne(this.personneService.findById(this.identifiantField.getText()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+//            this.errorLabel.setText("Veuillez remplir l'ensemble des champs");
+        }
+    }
+
+    public boolean fieldEmpty() {
+        return this.identifiantField.getText() == "";
+    }
+
+    public void checkPersonne(Personne personne) {
+        if (personne != null) {
+            this.setVisible(false);
+            new ConsultationFrame(personne);
+        } else {
+//            this.errorLabel.setText("Identifiant / Mot de passe incorrects");
+        }
     }
 }
