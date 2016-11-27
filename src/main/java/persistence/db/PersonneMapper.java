@@ -46,9 +46,12 @@ public class PersonneMapper {
                     .nom(rs.getString(2))
                     .prenom(rs.getString(3))
                     .evaluation(rs.getString(4))
-                    .pere(new VirtualProxyBuilder<>(IPersonne.class, new PereFactory(rs.getString(5))).getProxy())
                     .build();
+            if (rs.getString(5) != null) {
+                personne.setPere(new VirtualProxyBuilder<>(IPersonne.class, new PereFactory(rs.getString(5))).getProxy());
+            }
         }
+
         rs.close();
 
         return personne;

@@ -1,7 +1,7 @@
 # CONFIG DB
 db:
   driver: jdbc:mysql
-  hote: localhost
+  hote: localhost:8889
   base: personnels
   login: root
-  password: Superricco1995
+  password: root
