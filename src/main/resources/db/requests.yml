@@ -1,4 +1,4 @@
 select:
-    personne.by.identifiant: SELECT identifiant, nom, prenom, evaluation, pere
+    personne.by.identifiant: SELECT identifiant, name, firstName, evaluation, pere
         FROM PERSONNE
         WHERE identifiant = ?;

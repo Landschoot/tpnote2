@@ -1,7 +1,7 @@
 package persistence.uow;
 
-import domain.IPersonne;
+import domain.IUser;
 
 public interface Observateur {
-    void action(IPersonne o);
+    void action(IUser o);
 }

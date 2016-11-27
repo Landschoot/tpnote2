@@ -1,9 +1,9 @@
 package persistence.db;
 
-import domain.IPersonne;
-import domain.Personne;
+import domain.IUser;
+import domain.User;
 import net.rakugakibox.util.YamlResourceBundle;
-import persistence.vp.PereFactory;
+import persistence.vp.FatherFactory;
 import persistence.vp.VirtualProxyBuilder;
 
 import java.lang.ref.WeakReference;
@@ -16,39 +16,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PersonneMapper {
-    HashMap<String, WeakReference<Personne>> objets;
+public class UserMapper {
+    HashMap<String, WeakReference<User>> objets;
     protected ResourceBundle bundle;
-    private static PersonneMapper instance = null;
+    private static UserMapper instance = null;
     Connection db = null;
 
-    public static PersonneMapper getInstance() {
+    public static UserMapper getInstance() {
         if (instance == null)
-            instance = new PersonneMapper();
+            instance = new UserMapper();
         return instance;
     }
 
-    public PersonneMapper() {
+    public UserMapper() {
         this.objets = new HashMap<>();
         this.db = SingletonDB.getInstance().getDb();
         this.bundle = ResourceBundle.getBundle("db/requests", YamlResourceBundle.Control.INSTANCE);
     }
 
-    public IPersonne findByIdentifiant(String identifiant) throws SQLException {
-        Personne personne = null;
+    public IUser findByIdentifiant(String identifiant) throws SQLException {
+        User personne = null;
         PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.personne.by.identifiant"));
         preparedStatement.setString(1, identifiant);
         ResultSet rs = preparedStatement.executeQuery();
 
         while(rs.next()) {
-            personne = Personne.builder()
+            personne = User.builder()
                     .identifiant(rs.getString(1))
-                    .nom(rs.getString(2))
-                    .prenom(rs.getString(3))
+                    .name(rs.getString(2))
+                    .firstName(rs.getString(3))
                     .evaluation(rs.getString(4))
+                    .father(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy())
                     .build();
             if (rs.getString(5) != null) {
-                personne.setPere(new VirtualProxyBuilder<>(IPersonne.class, new PereFactory(rs.getString(5))).getProxy());
+                personne.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
             }
         }
 
@@ -57,11 +58,11 @@ public class PersonneMapper {
         return personne;
     }
 
-    public List<IPersonne> findFils(String identifiant) {
+    public List<IUser> findFils(String identifiant) {
         return new ArrayList<>();
     }
 
-    public void update(IPersonne personne) {
+    public void update(IUser personne) {
         System.out.println("Mise à jour personne");
     }
 }

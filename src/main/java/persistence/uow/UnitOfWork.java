@@ -1,7 +1,7 @@
 package persistence.uow;
 
-import domain.IPersonne;
-import persistence.db.PersonneMapper;
+import domain.IUser;
+import persistence.db.UserMapper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,23 +10,23 @@ import java.util.Set;
  * Created by lauthieb on 26/11/2016.
  */
 public class UnitOfWork implements Observateur {
-    Set<IPersonne> dirty;
-    PersonneMapper personneMapper;
+    Set<IUser> dirty;
+    UserMapper personneMapper;
     static UnitOfWork inst = null;
     public UnitOfWork() {
         dirty = new HashSet<>();
-        personneMapper = PersonneMapper.getInstance();
+        personneMapper = UserMapper.getInstance();
     }
     public static UnitOfWork getInstance() {
         if (inst == null)
             inst = new UnitOfWork();
         return inst;
     }
-    public void action(IPersonne o) {
+    public void action(IUser o) {
         dirty.add(o);
     }
     public void commit() {
-        for (IPersonne o : dirty) {
+        for (IUser o : dirty) {
             personneMapper.update(o);
         }
         dirty.clear();

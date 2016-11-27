@@ -2,7 +2,6 @@ package domain;
 
 import lombok.Builder;
 import lombok.Data;
-import persistence.uow.Observable;
 import persistence.uow.Observateur;
 
 import java.util.List;
@@ -13,15 +12,15 @@ import java.util.List;
  */
 @Data
 @Builder
-public class Personne implements IPersonne {
+public class User implements IUser {
     private List<Observateur> obs;
 
     private String identifiant;
-    private String nom;
-    private String prenom;
+    private String name;
+    private String firstName;
     private String evaluation;
-    private IPersonne pere;
-    private List<IPersonne> fils;
+    private IUser father;
+    private List<IUser> children;
 
     @Override
     public void add(Observateur o) {
@@ -32,5 +31,10 @@ public class Personne implements IPersonne {
     public void notifier() {
         for (Observateur o : obs)
             o.action(this);
+    }
+
+    @Override
+    public String toString() {
+        return getName()+" "+ getFirstName();
     }
 }

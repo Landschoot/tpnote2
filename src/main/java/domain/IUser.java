@@ -2,5 +2,5 @@ package domain;
 
 import persistence.uow.Observable;
 
-public interface IPersonne extends Observable {
+public interface IUser extends Observable {
 }
