@@ -49,7 +49,7 @@ public class UserMapper {
                     .father(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy())
                     .build();
             if (rs.getString(5) != null) {
-                personne.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
+                personne.setPere(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
             }
         }
 
