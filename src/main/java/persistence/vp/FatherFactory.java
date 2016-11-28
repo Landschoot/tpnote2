@@ -2,6 +2,7 @@ package persistence.vp;
 
 import domain.IUser;
 
+import domain.exceptions.PersonNotFoundException;
 import persistence.db.UserMapper;
 
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public class FatherFactory implements Factory<IUser>{
     }
 
     @Override
-    public IUser create() throws SQLException {
+    public IUser create() throws SQLException, PersonNotFoundException {
         return userMapper.findByIdentifiant(this.identifiant);
     }
 }

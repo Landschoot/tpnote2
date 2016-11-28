@@ -6,6 +6,7 @@ import domain.User;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by landschoot on 26/11/16.
@@ -34,20 +35,24 @@ public class ConsultationFrame extends AppFrame {
         Panel panel = new Panel();
         panel.setLayout(null);
 
-        this.nameLabel = new JLabel("Vous : "+ user);
+        this.nameLabel = new JLabel("Vous : " + user);
         this.nameLabel.setBounds(10, 10, 300, 25);
         panel.add(nameLabel);
 
-        this.nameFatherLabel = new JLabel("Votre pere : "+ user.getFather());
+        this.nameFatherLabel = new JLabel("Votre pere : " + user.getFather());
         this.nameFatherLabel.setBounds(10, 30, 300, 25);
         panel.add(nameFatherLabel);
 
-        this.evaluationLabel = new JLabel("Votre evaluation : "+ user.getEvaluation());
+        this.evaluationLabel = new JLabel("Votre evaluation : " + user.getEvaluation());
         this.evaluationLabel.setBounds(10, 50, 300, 25);
         panel.add(evaluationLabel);
 
         this.cancelButton = new JButton("Annuler");
         this.cancelButton.setBounds(330, 15, 100, 50);
+        this.cancelButton.addActionListener((ActionEvent e) -> {
+            this.setVisible(false);
+            new IdentificationFrame();
+        });
         panel.add(cancelButton);
 
         this.childrenLabel = new JLabel("Vos fils :");
@@ -74,7 +79,7 @@ public class ConsultationFrame extends AppFrame {
         this.childrenList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 User personneSelected = (User) childrenList.getSelectedValue();
-                this.evaluationChildLabel.setText("Evaluation de "+personneSelected+" :");
+                this.evaluationChildLabel.setText("Evaluation de " + personneSelected + " :");
                 this.evaluationChildArea.setVisible(true);
                 this.evaluationChildArea.setText(personneSelected.getEvaluation());
                 this.validateButton.setVisible(true);

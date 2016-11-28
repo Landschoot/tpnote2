@@ -2,6 +2,7 @@ package persistence.db;
 
 import domain.IUser;
 import domain.User;
+import domain.exceptions.PersonNotFoundException;
 import net.rakugakibox.util.YamlResourceBundle;
 import persistence.uow.UnitOfWork;
 import persistence.vp.ChildrenFactory;
@@ -36,13 +37,13 @@ public class UserMapper {
         this.bundle = ResourceBundle.getBundle("db/requests", YamlResourceBundle.Control.INSTANCE);
     }
 
-    public IUser findByIdentifiant(String identifiant) throws SQLException {
+    public IUser findByIdentifiant(String identifiant) throws SQLException, PersonNotFoundException {
         PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.personne.by.identifiant"));
         preparedStatement.setString(1, identifiant);
         ResultSet rs = preparedStatement.executeQuery();
 
         if(!rs.next()) {
-            /** TODO : exception NotFound **/
+            throw new PersonNotFoundException();
         }
 
         IUser user = createUser(rs);
