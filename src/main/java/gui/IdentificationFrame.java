@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
 /**
@@ -24,7 +26,7 @@ public class IdentificationFrame extends AppFrame {
     private UserService userService;
 
     public IdentificationFrame(){
-        super("Identification", 300, 140);
+        super("Identification", 280, 140);
         this.userService = UserService.getInstance();
         this.setContentPane(buildContentPane());
         this.setVisible(true);
@@ -40,6 +42,23 @@ public class IdentificationFrame extends AppFrame {
 
         this.identifiantField = new JTextField(20);
         this.identifiantField.setBounds(100, 10, 160, 25);
+        KeyListener keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    connect();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        };
+        this.identifiantField.addKeyListener(keyListener);
         panel.add(identifiantField);
 
         this.loginButton = new JButton("Connexion");
@@ -80,7 +99,7 @@ public class IdentificationFrame extends AppFrame {
                 this.infoLabel.setForeground(new Color(-3932126));
             }
         } else {
-            this.infoLabel.setText("Indiquer l'identifiant de la personne");
+            this.infoLabel.setText("Indiquez l'identifiant de la personne.");
             this.infoLabel.setForeground(new Color(-3932126));
         }
     }
