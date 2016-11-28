@@ -14,4 +14,8 @@ public abstract class AppFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
     }
+
+    public boolean fieldEmpty(JTextField jTextField) {
+        return "".equals(jTextField.getText());
+    }
 }

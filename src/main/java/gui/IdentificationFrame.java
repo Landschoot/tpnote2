@@ -68,7 +68,7 @@ public class IdentificationFrame extends AppFrame {
     }
 
     private void connect() {
-        if (!fieldEmpty()) {
+        if (!fieldEmpty(this.identifiantField)) {
             try {
                 IUser user = this.userService.findById(this.identifiantField.getText());
                 this.setVisible(false);
@@ -83,9 +83,5 @@ public class IdentificationFrame extends AppFrame {
             this.infoLabel.setText("Indiquer l'identifiant de la personne");
             this.infoLabel.setForeground(new Color(-3932126));
         }
-    }
-
-    public boolean fieldEmpty() {
-        return "".equals(this.identifiantField.getText());
     }
 }
