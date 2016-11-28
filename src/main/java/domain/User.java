@@ -35,11 +35,7 @@ public class User implements IUser {
 
     @Override
     public String toString() {
-        return getName()+" "+ getFirstName();
-    }
-
-    public void setObs(List<Observateur> obs) {
-        this.obs = obs;
+        return getName() + " " + getFirstName();
     }
 
     @Override

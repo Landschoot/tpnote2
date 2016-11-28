@@ -2,3 +2,6 @@ select:
     personne.by.identifiant: SELECT identifiant, nom, prenom, evaluation, pere
         FROM PERSONNE
         WHERE identifiant = ?;
+    fils.by.identifiant.pere: SELECT identifiant, nom, prenom, evaluation, pere
+        FROM PERSONNE
+        WHERE pere = ?

@@ -51,6 +51,21 @@ public class UserMapper {
         return user;
     }
 
+    public List<IUser> findChildren(String identifiant) throws SQLException {
+        List<IUser> children = new ArrayList<>();
+
+        PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.fils.by.identifiant.pere"));
+        preparedStatement.setString(1, identifiant);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while(rs.next()) {
+            children.add(createUser(rs));
+        }
+
+        rs.close();
+        return children;
+    }
+
     private IUser createUser(ResultSet rs) throws SQLException {
         IUser user;
 
@@ -69,10 +84,6 @@ public class UserMapper {
 
         user.add(UnitOfWork.getInstance());
         return user;
-    }
-
-    public List<IUser> findChildren(String identifiant) {
-        return new ArrayList<>();
     }
 
     public void update(IUser personne) {
