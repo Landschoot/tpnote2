@@ -46,10 +46,10 @@ public class UserMapper {
                     .name(rs.getString(2))
                     .firstName(rs.getString(3))
                     .evaluation(rs.getString(4))
-                    .father(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy())
+//                    .father(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy())
                     .build();
             if (rs.getString(5) != null) {
-                personne.setPere(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
+                personne.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
             }
         }
 
