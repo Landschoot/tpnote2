@@ -1,5 +1,6 @@
 package gui;
 
+import domain.IUser;
 import domain.User;
 
 import javax.swing.*;
@@ -20,11 +21,11 @@ public class ConsultationFrame extends AppFrame {
     private JTextArea evaluationChildArea;
     private JButton validateButton;
 
-    private User user;
+    private IUser user;
 
-    public ConsultationFrame(User personne){
+    public ConsultationFrame(IUser user){
         super("Consultation", 450, 350);
-        this.user = personne;
+        this.user = user;
         this.setContentPane(buildContentPane());
         this.setVisible(true);
     }
@@ -33,7 +34,7 @@ public class ConsultationFrame extends AppFrame {
         Panel panel = new Panel();
         panel.setLayout(null);
 
-        this.nameLabel = new JLabel("Vous : "+ user.getName());
+        this.nameLabel = new JLabel("Vous : "+ user);
         this.nameLabel.setBounds(10, 10, 300, 25);
         panel.add(nameLabel);
 

@@ -3,6 +3,8 @@ package persistence.db;
 import domain.IUser;
 import domain.User;
 import net.rakugakibox.util.YamlResourceBundle;
+import persistence.uow.UnitOfWork;
+import persistence.vp.ChildrenFactory;
 import persistence.vp.FatherFactory;
 import persistence.vp.VirtualProxyBuilder;
 
@@ -28,37 +30,48 @@ public class UserMapper {
         return instance;
     }
 
-    public UserMapper() {
+    private UserMapper() {
         this.objets = new HashMap<>();
         this.db = SingletonDB.getInstance().getDb();
         this.bundle = ResourceBundle.getBundle("db/requests", YamlResourceBundle.Control.INSTANCE);
     }
 
     public IUser findByIdentifiant(String identifiant) throws SQLException {
-        User personne = null;
         PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.personne.by.identifiant"));
         preparedStatement.setString(1, identifiant);
         ResultSet rs = preparedStatement.executeQuery();
 
-        while(rs.next()) {
-            personne = User.builder()
-                    .identifiant(rs.getString(1))
-                    .name(rs.getString(2))
-                    .firstName(rs.getString(3))
-                    .evaluation(rs.getString(4))
-//                    .father(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy())
-                    .build();
-            if (rs.getString(5) != null) {
-                personne.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
-            }
+        if(!rs.next()) {
+            /** TODO : exception NotFound **/
         }
 
-        rs.close();
+        IUser user = createUser(rs);
 
-        return personne;
+        rs.close();
+        return user;
     }
 
-    public List<IUser> findFils(String identifiant) {
+    private IUser createUser(ResultSet rs) throws SQLException {
+        IUser user;
+
+        user = User.builder()
+                .identifiant(rs.getString(1))
+                .name(rs.getString(2))
+                .firstName(rs.getString(3))
+                .evaluation(rs.getString(4))
+                .obs(new ArrayList<>())
+                .build();
+        if (rs.getString(5) != null) {
+            user.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
+        }
+
+        user.setChildren(new VirtualProxyBuilder<>(List.class, new ChildrenFactory(rs.getString(1))).getProxy());
+
+        user.add(UnitOfWork.getInstance());
+        return user;
+    }
+
+    public List<IUser> findChildren(String identifiant) {
         return new ArrayList<>();
     }
 

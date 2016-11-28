@@ -9,15 +9,15 @@ import java.sql.SQLException;
 public class FatherFactory implements Factory<IUser>{
 
     String identifiant;
-    UserMapper personneMapper;
+    UserMapper userMapper;
 
     public FatherFactory(String identifiant) {
         this.identifiant = identifiant;
-        this.personneMapper = UserMapper.getInstance();
+        this.userMapper = UserMapper.getInstance();
     }
 
     @Override
     public IUser create() throws SQLException {
-        return personneMapper.findByIdentifiant(this.identifiant);
+        return userMapper.findByIdentifiant(this.identifiant);
     }
 }

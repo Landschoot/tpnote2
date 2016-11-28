@@ -1,6 +1,6 @@
 package gui;
 
-import domain.User;
+import domain.IUser;
 import service.UserService;
 
 import javax.swing.*;
@@ -87,7 +87,7 @@ public class IdentificationFrame extends AppFrame {
         return "".equals(this.identifiantField.getText());
     }
 
-    public void checkPersonne(User personne) {
+    public void checkPersonne(IUser personne) {
         if (personne != null) {
             this.setVisible(false);
             new ConsultationFrame(personne);
