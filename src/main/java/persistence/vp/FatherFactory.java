@@ -1,7 +1,6 @@
 package persistence.vp;
 
 import domain.IUser;
-
 import domain.exceptions.PersonNotFoundException;
 import persistence.db.UserMapper;
 

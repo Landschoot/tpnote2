@@ -1,13 +1,8 @@
 package service;
 
 import domain.IUser;
-import domain.User;
 import domain.exceptions.PersonNotFoundException;
 import persistence.db.UserMapper;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by landschoot on 26/11/16.
@@ -28,7 +23,7 @@ public class UserService {
         this.userMapper = UserMapper.getInstance();
     }
 
-    public IUser findById(String id) throws SQLException, PersonNotFoundException {
+    public IUser findById(String id) throws PersonNotFoundException {
         return userMapper.findByIdentifiant(id);
     }
 }

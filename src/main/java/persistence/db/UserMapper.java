@@ -37,57 +37,76 @@ public class UserMapper {
         this.bundle = ResourceBundle.getBundle("db/requests", YamlResourceBundle.Control.INSTANCE);
     }
 
-    public IUser findByIdentifiant(String identifiant) throws SQLException, PersonNotFoundException {
-        PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.personne.by.identifiant"));
-        preparedStatement.setString(1, identifiant);
-        ResultSet rs = preparedStatement.executeQuery();
+    public IUser findByIdentifiant(String identifiant) throws PersonNotFoundException {
+        IUser user = null;
 
-        if(!rs.next()) {
-            throw new PersonNotFoundException();
+        try {
+            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.personne.by.identifiant"));
+            preparedStatement.setString(1, identifiant);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if(!rs.next()) {
+                throw new PersonNotFoundException();
+            }
+
+            user = createUser(rs);
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        IUser user = createUser(rs);
-
-        rs.close();
         return user;
     }
 
-    public List<IUser> findChildren(String identifiant) throws SQLException {
+    public List<IUser> findChildren(String identifiant) {
         List<IUser> children = new ArrayList<>();
 
-        PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.fils.by.identifiant.pere"));
-        preparedStatement.setString(1, identifiant);
-        ResultSet rs = preparedStatement.executeQuery();
+        try {
+            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.fils.by.identifiant.pere"));
+            preparedStatement.setString(1, identifiant);
+            ResultSet rs = preparedStatement.executeQuery();
 
-        while(rs.next()) {
-            children.add(createUser(rs));
+            while(rs.next()) {
+                children.add(createUser(rs));
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        rs.close();
         return children;
     }
 
-    private IUser createUser(ResultSet rs) throws SQLException {
-        IUser user;
+    private IUser createUser(ResultSet rs) {
+        IUser user = null;
 
-        user = User.builder()
-                .identifiant(rs.getString(1))
-                .name(rs.getString(2))
-                .firstName(rs.getString(3))
-                .evaluation(rs.getString(4))
-                .obs(new ArrayList<>())
-                .build();
-        if (rs.getString(5) != null) {
-            user.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
+        try {
+            user = User.builder()
+                    .identifiant(rs.getString(1))
+                    .name(rs.getString(2))
+                    .firstName(rs.getString(3))
+                    .evaluation(rs.getString(4))
+                    .obs(new ArrayList<>())
+                    .build();
+            if (rs.getString(5) != null) {
+                user.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
+            }
+            user.setChildren(new VirtualProxyBuilder<>(List.class, new ChildrenFactory(rs.getString(1))).getProxy());
+            user.add(UnitOfWork.getInstance());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        user.setChildren(new VirtualProxyBuilder<>(List.class, new ChildrenFactory(rs.getString(1))).getProxy());
-
-        user.add(UnitOfWork.getInstance());
         return user;
     }
 
-    public void update(IUser personne) {
-        System.out.println("Mise à jour personne");
+    public void update(IUser user) {
+        try {
+            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("update.personne.by.identifiant"));
+            preparedStatement.setString(1, user.getEvaluation());
+            preparedStatement.setString(1, user.getIdentifiant());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

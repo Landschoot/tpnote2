@@ -1,6 +1,8 @@
 package persistence.vp;
 
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 public class VirtualProxyBuilder<T> implements InvocationHandler {
     T realObject = null;

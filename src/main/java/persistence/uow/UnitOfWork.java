@@ -11,11 +11,11 @@ import java.util.Set;
  */
 public class UnitOfWork implements Observateur {
     Set<IUser> dirty;
-    UserMapper personneMapper;
+    UserMapper userMapper;
     static UnitOfWork inst = null;
     public UnitOfWork() {
         dirty = new HashSet<>();
-        personneMapper = UserMapper.getInstance();
+        userMapper = UserMapper.getInstance();
     }
     public static UnitOfWork getInstance() {
         if (inst == null)
@@ -27,7 +27,7 @@ public class UnitOfWork implements Observateur {
     }
     public void commit() {
         for (IUser o : dirty) {
-            personneMapper.update(o);
+            userMapper.update(o);
         }
         dirty.clear();
     }

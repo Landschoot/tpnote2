@@ -7,10 +7,8 @@ import service.UserService;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.SQLException;
 
 /**
  * Created by landschoot on 25/11/16.
@@ -92,8 +90,6 @@ public class IdentificationFrame extends AppFrame {
                 IUser user = this.userService.findById(this.identifiantField.getText());
                 this.setVisible(false);
                 new ConsultationFrame(user);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
             } catch (PersonNotFoundException e2) {
                 this.infoLabel.setText(e2.getMessage());
                 this.infoLabel.setForeground(new Color(-3932126));
