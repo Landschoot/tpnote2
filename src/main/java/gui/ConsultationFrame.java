@@ -2,6 +2,7 @@ package gui;
 
 import domain.IUser;
 import domain.User;
+import service.UserService;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -23,10 +24,13 @@ public class ConsultationFrame extends AppFrame {
     private JButton validateButton;
 
     private IUser user;
+    private IUser userSelected;
+    private UserService userService;
 
     public ConsultationFrame(IUser user){
         super("Consultation", 450, 350);
         this.user = user;
+        this.userService = UserService.getInstance();
         this.setContentPane(buildContentPane());
         this.setVisible(true);
     }
@@ -50,6 +54,7 @@ public class ConsultationFrame extends AppFrame {
         this.cancelButton = new JButton("Annuler");
         this.cancelButton.setBounds(330, 15, 100, 50);
         this.cancelButton.addActionListener((ActionEvent e) -> {
+            this.userService.rollback();
             this.setVisible(false);
             new IdentificationFrame();
         });
@@ -71,6 +76,13 @@ public class ConsultationFrame extends AppFrame {
         this.validateButton = new JButton("Valider");
         this.validateButton.setBounds(300, 260, 100, 40);
         this.validateButton.setVisible(false);
+        this.validateButton.addActionListener((ActionEvent e) -> {
+            if (this.userSelected != null) {
+                this.userSelected.setEvaluation(this.evaluationChildArea.getText());
+            }
+            this.userService.commit();
+            JOptionPane.showMessageDialog(new JFrame(), "Mise à jour effectuée.");
+        });
         panel.add(validateButton);
 
         this.childrenList = new JList(user.getChildren().toArray());
@@ -78,10 +90,13 @@ public class ConsultationFrame extends AppFrame {
         this.childrenList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.childrenList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
-                User personneSelected = (User) childrenList.getSelectedValue();
-                this.evaluationChildLabel.setText("Evaluation de " + personneSelected + " :");
+                if (this.userSelected != null) {
+                    this.userSelected.setEvaluation(this.evaluationChildArea.getText());
+                }
+                this.userSelected = (User) childrenList.getSelectedValue();
+                this.evaluationChildLabel.setText("Evaluation de " + userSelected + " :");
                 this.evaluationChildArea.setVisible(true);
-                this.evaluationChildArea.setText(personneSelected.getEvaluation());
+                this.evaluationChildArea.setText(userSelected.getEvaluation());
                 this.validateButton.setVisible(true);
             }
         });

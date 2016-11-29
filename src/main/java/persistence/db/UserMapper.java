@@ -103,7 +103,7 @@ public class UserMapper {
         try {
             PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("update.personne.by.identifiant"));
             preparedStatement.setString(1, user.getEvaluation());
-            preparedStatement.setString(1, user.getIdentifiant());
+            preparedStatement.setString(2, user.getIdentifiant());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
