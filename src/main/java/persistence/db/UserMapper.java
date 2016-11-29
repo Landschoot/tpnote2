@@ -88,7 +88,7 @@ public class UserMapper {
         try {
             user = User.builder()
                     .identifiant(rs.getString("identifiant"))
-                    .name(rs.getString("name"))
+                    .lastName(rs.getString("lastname"))
                     .firstName(rs.getString("firstname"))
                     .evaluation(rs.getString("evaluation"))
                     .obs(new ArrayList<>())

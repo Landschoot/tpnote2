@@ -1,8 +1,8 @@
 select:
-  user.by.identifiant: SELECT identifiant, name, firstname, evaluation, father
+  user.by.identifiant: SELECT identifiant, lastname, firstname, evaluation, father
       FROM USER
       WHERE identifiant = ?;
-  children.by.identifiant.father: SELECT identifiant, name, firstname, evaluation, father
+  children.by.identifiant.father: SELECT identifiant, lastname, firstname, evaluation, father
       FROM USER
       WHERE father = ?;
 

@@ -9,11 +9,11 @@ USE personnels;
 DROP TABLE IF EXISTS USER;
 CREATE TABLE USER (
   identifiant varchar(20) NOT NULL primary key,
-  name varchar(15) NOT NULL,
+  lastname varchar(15) NOT NULL,
   firstname varchar(15) NOT NULL,
   evaluation varchar(200) NOT NULL,
   father varchar(20)
 );
 
-ALTER TABLE PERSONNE
-  ADD CONSTRAINT fk_personne_pere foreign key (father) REFERENCES PERSONNE(identifiant);
+ALTER TABLE USER
+  ADD CONSTRAINT fk_user_father foreign key (father) REFERENCES USER(identifiant);

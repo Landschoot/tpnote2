@@ -17,7 +17,7 @@ public class User implements IUser {
     private List<Observer> obs;
 
     private String identifiant;
-    private String name;
+    private String lastName;
     private String firstName;
     private String evaluation;
     private IUser father;
@@ -36,7 +36,7 @@ public class User implements IUser {
 
     @Override
     public String toString() {
-        return getName() + " " + getFirstName();
+        return getLastName() + " " + getFirstName();
     }
 
     @Override
@@ -46,8 +46,8 @@ public class User implements IUser {
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
         notif();
     }
 
