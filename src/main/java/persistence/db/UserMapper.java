@@ -6,7 +6,7 @@ import domain.exceptions.PersonNotFoundException;
 import net.rakugakibox.util.YamlResourceBundle;
 import persistence.uow.UnitOfWork;
 import persistence.vp.ChildrenFactory;
-import persistence.vp.FatherFactory;
+import persistence.vp.PersonFactory;
 import persistence.vp.VirtualProxyBuilder;
 
 import java.lang.ref.WeakReference;
@@ -19,6 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Classe d'accès aux données représentant un mapper d'utilisateur.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
+ */
 public class UserMapper {
     HashMap<String, WeakReference<User>> objets;
     protected ResourceBundle bundle;
@@ -41,7 +46,7 @@ public class UserMapper {
         IUser user = null;
 
         try {
-            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.personne.by.identifiant"));
+            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.user.by.identifiant"));
             preparedStatement.setString(1, identifiant);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -62,7 +67,7 @@ public class UserMapper {
         List<IUser> children = new ArrayList<>();
 
         try {
-            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.fils.by.identifiant.pere"));
+            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("select.children.by.identifiant.father"));
             preparedStatement.setString(1, identifiant);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -82,16 +87,16 @@ public class UserMapper {
 
         try {
             user = User.builder()
-                    .identifiant(rs.getString(1))
-                    .name(rs.getString(2))
-                    .firstName(rs.getString(3))
-                    .evaluation(rs.getString(4))
+                    .identifiant(rs.getString("identifiant"))
+                    .name(rs.getString("name"))
+                    .firstName(rs.getString("firstname"))
+                    .evaluation(rs.getString("evaluation"))
                     .obs(new ArrayList<>())
                     .build();
-            if (rs.getString(5) != null) {
-                user.setFather(new VirtualProxyBuilder<>(IUser.class, new FatherFactory(rs.getString(5))).getProxy());
+            if (rs.getString("father") != null) {
+                user.setFather(new VirtualProxyBuilder<>(IUser.class, new PersonFactory(rs.getString("father"))).getProxy());
             }
-            user.setChildren(new VirtualProxyBuilder<>(List.class, new ChildrenFactory(rs.getString(1))).getProxy());
+            user.setChildren(new VirtualProxyBuilder<>(List.class, new ChildrenFactory(rs.getString("identifiant"))).getProxy());
             user.add(UnitOfWork.getInstance());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,7 +106,7 @@ public class UserMapper {
 
     public void update(IUser user) {
         try {
-            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("update.personne.by.identifiant"));
+            PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("update.user.by.identifiant"));
             preparedStatement.setString(1, user.getEvaluation());
             preparedStatement.setString(2, user.getIdentifiant());
             preparedStatement.executeUpdate();

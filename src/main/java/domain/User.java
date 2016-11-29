@@ -2,18 +2,19 @@ package domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import persistence.uow.Observateur;
+import persistence.uow.Observer;
 
 import java.util.List;
 
 /**
- * Created by landschoot on 25/11/16.
- * Classe qui représente une personne
+ * Classe représentant un utilisateur.
+ *
+ * @author Laurent THIEBAULT & Ludovic LANDSCHOOT
  */
 @Getter
 @Builder
 public class User implements IUser {
-    private List<Observateur> obs;
+    private List<Observer> obs;
 
     private String identifiant;
     private String name;
@@ -23,13 +24,13 @@ public class User implements IUser {
     private List<IUser> children;
 
     @Override
-    public void add(Observateur o) {
+    public void add(Observer o) {
         obs.add(o);
     }
 
     @Override
-    public void notifier() {
-        for (Observateur o : obs)
+    public void notif() {
+        for (Observer o : obs)
             o.action(this);
     }
 
@@ -41,36 +42,36 @@ public class User implements IUser {
     @Override
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
-        notifier();
+        notif();
     }
 
     @Override
     public void setName(String name) {
         this.name = name;
-        notifier();
+        notif();
     }
 
     @Override
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-        notifier();
+        notif();
     }
 
     @Override
     public void setEvaluation(String evaluation) {
         this.evaluation = evaluation;
-        notifier();
+        notif();
     }
 
     @Override
     public void setFather(IUser father) {
         this.father = father;
-        notifier();
+        notif();
     }
 
     @Override
     public void setChildren(List<IUser> children) {
         this.children = children;
-        notifier();
+        notif();
     }
 }

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * Classe singleton servant à la connexion à une base de données dont la config est située dans le fichier resources/tp3.yml
+ * Classe singleton servant à la connexion à une base de données dont la config est située dans le fichier resources/config.yml
  *
  * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */

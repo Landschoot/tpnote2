@@ -10,7 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Created by landschoot on 26/11/16.
+ * Classe représentant la fenêtre de consultation.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */
 public class ConsultationFrame extends AppFrame {
     private JLabel nameLabel;
@@ -56,7 +58,7 @@ public class ConsultationFrame extends AppFrame {
         this.cancelButton.addActionListener((ActionEvent e) -> {
             this.userService.rollback();
             this.setVisible(false);
-            new IdentificationFrame();
+            new LoginFrame();
         });
         panel.add(cancelButton);
 

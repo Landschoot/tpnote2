@@ -4,6 +4,11 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * Classe représentant le virtual proxy builder.
+ *
+ * @author Laurent THIEBAULT & Ludovic LANDSCHOOT (via Clément BALLABRIGA)
+ */
 public class VirtualProxyBuilder<T> implements InvocationHandler {
     T realObject = null;
 

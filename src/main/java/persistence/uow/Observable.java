@@ -1,6 +1,11 @@
 package persistence.uow;
 
+/**
+ * Interface décrivant un observable.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
+ */
 public interface Observable {
-    void add(Observateur o);
-    void notifier();
+    void add(Observer o);
+    void notif();
 }

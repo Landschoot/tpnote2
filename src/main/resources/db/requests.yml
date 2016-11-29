@@ -1,13 +1,13 @@
 select:
-  personne.by.identifiant: SELECT identifiant, nom, prenom, evaluation, pere
-      FROM PERSONNE
+  user.by.identifiant: SELECT identifiant, name, firstname, evaluation, father
+      FROM USER
       WHERE identifiant = ?;
-  fils.by.identifiant.pere: SELECT identifiant, nom, prenom, evaluation, pere
-      FROM PERSONNE
-      WHERE pere = ?;
+  children.by.identifiant.father: SELECT identifiant, name, firstname, evaluation, father
+      FROM USER
+      WHERE father = ?;
 
 update:
-  personne.by.identifiant:
-    UPDATE PERSONNE
+  user.by.identifiant:
+    UPDATE USER
     SET evaluation = ?
     WHERE identifiant = ?;

@@ -4,6 +4,11 @@ import persistence.uow.Observable;
 
 import java.util.List;
 
+/**
+ * Interface d'un utilisateur.
+ *
+ * @author Laurent THIEBAULT & Ludovic LANDSCHOOT
+ */
 public interface IUser extends Observable {
     public String getIdentifiant();
 

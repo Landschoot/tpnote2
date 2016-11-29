@@ -1,7 +1,9 @@
 package domain.exceptions;
 
 /**
- * Created by lauthieb on 29/11/2016.
+ * Classe représentant l'exception concernant une personne non trouvée dans la base.
+ *
+ * @author Laurent THIEBAULT & Ludovic LANDSCHOOT
  */
 public class PersonNotFoundException extends Exception {
     public PersonNotFoundException() {

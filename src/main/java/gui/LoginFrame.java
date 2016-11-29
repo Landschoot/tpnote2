@@ -11,10 +11,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Created by landschoot on 25/11/16.
- * Classe qui représente la fenêtre d'identification d'une personne
+ * Classe représentant la fenêtre d'identification.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */
-public class IdentificationFrame extends AppFrame {
+public class LoginFrame extends AppFrame {
     private JLabel infoLabel;
     private JLabel identifiantLabel;
     private JTextField identifiantField;
@@ -23,7 +24,7 @@ public class IdentificationFrame extends AppFrame {
 
     private UserService userService;
 
-    public IdentificationFrame(){
+    public LoginFrame(){
         super("Identification", 280, 140);
         this.userService = UserService.getInstance();
         this.setContentPane(buildContentPane());

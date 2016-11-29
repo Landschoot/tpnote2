@@ -8,10 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by lauthieb on 26/11/2016.
+ * Classe représentant l'UnitOfWork.
+ *
+ * @author Laurent THIEBAULT & Ludovic LANDSCHOOT (via Clément BALLABRIGA)
  */
 @Getter
-public class UnitOfWork implements Observateur {
+public class UnitOfWork implements Observer {
     Set<IUser> dirty;
     UserMapper userMapper;
     static UnitOfWork inst = null;

@@ -1,10 +1,12 @@
-import gui.IdentificationFrame;
+import gui.LoginFrame;
 
 /**
- * Created by landschoot on 25/11/1.
+ * Classe servant à lancer l'application.
+ *
+ * @author Laurent THIEBAULT & Ludovic LANDSCHOOT
  */
 public class Application {
     public static void main(String[] args) throws Exception {
-        new IdentificationFrame();
+        new LoginFrame();
     }
 }

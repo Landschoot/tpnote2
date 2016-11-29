@@ -6,12 +6,17 @@ import persistence.db.UserMapper;
 
 import java.sql.SQLException;
 
-public class FatherFactory implements Factory<IUser>{
+/**
+ * Classe représentant une factory pour un utilisateur.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
+ */
+public class PersonFactory implements Factory<IUser>{
 
     String identifiant;
     UserMapper userMapper;
 
-    public FatherFactory(String identifiant) {
+    public PersonFactory(String identifiant) {
         this.identifiant = identifiant;
         this.userMapper = UserMapper.getInstance();
     }

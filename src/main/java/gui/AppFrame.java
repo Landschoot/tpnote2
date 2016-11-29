@@ -3,7 +3,9 @@ package gui;
 import javax.swing.*;
 
 /**
- * Created by landschoot on 27/11/16.
+ * Classe abstraite représentant une fenêtre de l'application.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */
 public abstract class AppFrame extends JFrame {
 

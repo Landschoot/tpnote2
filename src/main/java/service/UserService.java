@@ -6,7 +6,9 @@ import persistence.db.UserMapper;
 import persistence.uow.UnitOfWork;
 
 /**
- * Created by landschoot on 26/11/16.
+ * Classe représentant un service pour les utilisateurs.
+ *
+ * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */
 public class UserService {
     private static UserService instance = null;

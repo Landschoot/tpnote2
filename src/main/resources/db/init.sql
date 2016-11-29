@@ -1,6 +1,6 @@
 /****************** Insertion des personnes ******************/
-INSERT INTO PERSONNE VALUES ("charles", "Landschoot", "Charles", "Bien", null);
-INSERT INTO PERSONNE VALUES ("guy", "Landschoot", "Guy", "Moyen", "charles");
-INSERT INTO PERSONNE VALUES ("ludovic", "Landschoot", "Ludovic", "Super", "guy");
-INSERT INTO PERSONNE VALUES ("alicia", "Landschoot", "Alicia", "Bof", "guy");
-INSERT INTO PERSONNE VALUES ("tony", "Landschoot", "Tony", "Bof aussi", "guy");
+INSERT INTO USER VALUES ("charles", "Landschoot", "Charles", "Bien", null);
+INSERT INTO USER VALUES ("guy", "Landschoot", "Guy", "Moyen", "charles");
+INSERT INTO USER VALUES ("ludovic", "Landschoot", "Ludovic", "Super", "guy");
+INSERT INTO USER VALUES ("alicia", "Landschoot", "Alicia", "Bof", "guy");
+INSERT INTO USER VALUES ("tony", "Landschoot", "Tony", "Bof aussi", "guy");
