@@ -12,5 +12,11 @@ import java.sql.SQLException;
  * @author Laurent THIEBAULT & Ludovic LANDSCHOOT
  */
 public interface Factory<T> {
+    /**
+     * Créer le type T.
+     * @return
+     * @throws SQLException
+     * @throws PersonNotFoundException
+     */
     T create() throws SQLException, PersonNotFoundException;
 }

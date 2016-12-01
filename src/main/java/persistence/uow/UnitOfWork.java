@@ -14,27 +14,42 @@ import java.util.Set;
  */
 @Getter
 public class UnitOfWork implements Observer {
+    public static UnitOfWork inst = null;
     Set<IUser> dirty;
     UserMapper userMapper;
-    static UnitOfWork inst = null;
+
     public UnitOfWork() {
         dirty = new HashSet<>();
         userMapper = UserMapper.getInstance();
     }
+
     public static UnitOfWork getInstance() {
         if (inst == null)
             inst = new UnitOfWork();
         return inst;
     }
+
+    /**
+     * Ajoute un utilisateur à modifier.
+     * @param o
+     */
     public void action(IUser o) {
         dirty.add(o);
     }
+
+    /**
+     * Effectue les modifications sur tous les utilisateurs de la liste.
+     */
     public void commit() {
         for (IUser o : dirty) {
             userMapper.update(o);
         }
         rollback();
     }
+
+    /**
+     * Reinitialise à vide la liste des utilisateurs à modifier.
+     */
     public void rollback() {
         dirty.clear();
     }

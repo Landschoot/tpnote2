@@ -28,6 +28,12 @@ public class UserService {
         this.unitOfWork = UnitOfWork.getInstance();
     }
 
+    /**
+     * Récupére un utilisateur par son identifiant.
+     * @param id
+     * @return
+     * @throws PersonNotFoundException
+     */
     public IUser findById(String id) throws PersonNotFoundException {
         return userMapper.findByIdentifiant(id);
     }

@@ -25,10 +25,10 @@ import java.util.ResourceBundle;
  * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */
 public class UserMapper {
-    HashMap<String, WeakReference<User>> objets;
-    protected ResourceBundle bundle;
     private static UserMapper instance = null;
     Connection db = null;
+    HashMap<String, WeakReference<User>> objets;
+    protected ResourceBundle bundle;
 
     public static UserMapper getInstance() {
         if (instance == null)
@@ -42,6 +42,12 @@ public class UserMapper {
         this.bundle = ResourceBundle.getBundle("db/requests", YamlResourceBundle.Control.INSTANCE);
     }
 
+    /**
+     * Récupére un utilisateur par son identifiant.
+     * @param identifiant
+     * @return
+     * @throws PersonNotFoundException
+     */
     public IUser findByIdentifiant(String identifiant) throws PersonNotFoundException {
         IUser user = null;
 
@@ -63,6 +69,11 @@ public class UserMapper {
         return user;
     }
 
+    /**
+     * Récupére les enfants de l'utilisateur.
+     * @param identifiant
+     * @return
+     */
     public List<IUser> findChildren(String identifiant) {
         List<IUser> children = new ArrayList<>();
 
@@ -82,6 +93,11 @@ public class UserMapper {
         return children;
     }
 
+    /**
+     * Créer un utilisateur.
+     * @param rs
+     * @return
+     */
     private IUser createUser(ResultSet rs) {
         IUser user = null;
 
@@ -104,6 +120,10 @@ public class UserMapper {
         return user;
     }
 
+    /**
+     * Modifie un utilisateur.
+     * @param user
+     */
     public void update(IUser user) {
         try {
             PreparedStatement preparedStatement = db.prepareStatement(this.bundle.getString("update.user.by.identifiant"));

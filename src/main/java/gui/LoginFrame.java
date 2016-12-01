@@ -31,6 +31,10 @@ public class LoginFrame extends AppFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Construit le panel de la page.
+     * @return
+     */
     private JPanel buildContentPane(){
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -85,6 +89,9 @@ public class LoginFrame extends AppFrame {
         return panel;
     }
 
+    /**
+     * Connecte l'utilisateur.
+     */
     private void connect() {
         if (!fieldEmpty(this.identifiantField)) {
             try {

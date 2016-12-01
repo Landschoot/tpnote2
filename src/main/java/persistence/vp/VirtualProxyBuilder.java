@@ -11,9 +11,7 @@ import java.lang.reflect.Proxy;
  */
 public class VirtualProxyBuilder<T> implements InvocationHandler {
     T realObject = null;
-
     Factory<T> factory;
-
     Class<?> iface;
 
     public VirtualProxyBuilder(Class<?> iface, Factory<T> factory) {
@@ -27,6 +25,14 @@ public class VirtualProxyBuilder<T> implements InvocationHandler {
         return r;
     }
 
+    /**
+     * Méthode appelé lorsqu'on utilise l'object fonctory.
+     * @param proxy
+     * @param method
+     * @param args
+     * @return
+     * @throws Throwable
+     */
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (realObject == null) {
             realObject = factory.create();

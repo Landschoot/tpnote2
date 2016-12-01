@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
  * @author Ludovic LANDSCHOOT & Laurent THIEBAULT
  */
 public class SingletonDB {
-
     public static SingletonDB instance = null;
 
     private static String DB_DRIVER;
@@ -36,6 +35,9 @@ public class SingletonDB {
         connect();
     }
 
+    /**
+     * Charge les paramètres permettant la connexion à la base de données.
+     */
     private void loadConfig() {
         ResourceBundle bundle = ResourceBundle.getBundle("config", YamlResourceBundle.Control.INSTANCE);
         this.DB_DRIVER = bundle.getString("db.driver");
@@ -45,6 +47,10 @@ public class SingletonDB {
         this.DB_PASSWORD = bundle.getString("db.password");
     }
 
+    /**
+     * Effectue la connexion à la base de données.
+     * @return
+     */
     public Boolean connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -56,6 +62,9 @@ public class SingletonDB {
         return false;
     }
 
+    /**
+     * Ferme la connexion vers la base de données.
+     */
     public void close() {
         try {
             this.db.close();
