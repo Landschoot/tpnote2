@@ -10,6 +10,12 @@ Au cours de chaque année, l’activité professionnelle de chaque personnel de 
 * persistence : Accès à la base de données - Transformation en objet Java
 * domain : Objets métiers
 
+## UML
+Disponible à la racine du projet dans le fichier UML.png
+
+## Executable
+Vous avez à votre disposition un .jar exécutable de l'application dans le dossier target.
+
 ## Pré-requis
 * Java 8
 * Maven
@@ -20,14 +26,8 @@ Au cours de chaque année, l’activité professionnelle de chaque personnel de 
 * `mvn clean compile assembly:single` : Génération d'un fichier JAR exécutable
 
 ## Ne pas oublier
-* Installer le plugin Lombok sur IntelliJ
-* Ajouter un fichier config.yml dans resources contenant :
-db:  
-    driver: jdbc:mysql  
-    hote: localhost:8889  
-    base: personnels     
-    login: root  
-    password: root  
+* Installer le plugin Lombok (si vous utilisez IntelliJ)
+* Modifier le fichier config.yml pour se connecter à une base de données
 
 ## Contributeurs
 [Ludovic LANDSCHOOT](http://github.com/landschoot) & [Laurent THIEBAULT](http://github.com/lauthieb)
