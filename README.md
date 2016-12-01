@@ -10,6 +10,10 @@ Au cours de chaque année, l’activité professionnelle de chaque personnel de 
 * persistence : Accès à la base de données - Transformation en objet Java
 * domain : Objets métiers
 
+## Pré-requis
+* Java 8
+* Maven
+
 ## Tâches Maven
 * `mvn clean install` : Installation des dépendances du projet
 * `mvn exec:java` : Execution du projet
