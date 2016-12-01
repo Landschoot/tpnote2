@@ -18,12 +18,12 @@ Au cours de chaque année, l’activité professionnelle de chaque personnel de 
 ## Ne pas oublier
 * Installer le plugin Lombok sur IntelliJ
 * Ajouter un fichier config.yml dans resources contenant :
-db:
-    driver: jdbc:mysql
-    hote: localhost:8889
-    base: personnels
-    login: root
-    password: root
+db:  
+    driver: jdbc:mysql  
+    hote: localhost:8889  
+    base: personnels     
+    login: root  
+    password: root  
 
 ## Contributeurs
 [Ludovic LANDSCHOOT](http://github.com/landschoot) & [Laurent THIEBAULT](http://github.com/lauthieb)
